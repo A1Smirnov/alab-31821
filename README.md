@@ -104,4 +104,4 @@ You can test the API using Postman. Create the following requests:
 
 1. **Register** a new user with a POST request to `http://localhost:3000/register` with the required JSON body.
 2. **Login** the user with a POST request to `http://localhost:3000/login` and store the returned token.
-3. Use the token to access the protected route by sending a GET request to `http://localhost:3000/protected` with the token in the Authorization header.
+3. Use the token to access the protected route by sending a GET request to `http://localhost:3000/protected` with the token in the Authorization header.gi
