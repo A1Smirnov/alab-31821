@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>User Profile</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/user/Admin">User Admin</a>
+        <a href="/profile">Profile</a>
+    </nav>
+    <h2>Profile Information</h2>
+    <p><strong>Username:</strong> <%= user.username %></p>
+    <p><strong>Name:</strong> <%= user.name %></p>
+    <p><strong>Birthdate:</strong> <%= user.birthdate %></p>
+    <a href="/">Go to Home</a>
+</body>
+</html>

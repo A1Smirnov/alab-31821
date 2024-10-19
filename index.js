@@ -37,6 +37,16 @@ app.get('/', (req, res) => {
     res.render('index'); // Render index page
 });
 
+// Route for useer profile - improvization Part 5
+app.get('/profile', authenticateJWT, (req, res) => {
+    const user = users.find(user => user.username === req.user.username);
+    if (!user) {
+        return res.status(404).send('User not found');
+    }
+    res.render('profile', { user }); // Отправляем данные пользователя на страницу профиля
+});
+
+
 // Register new user
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
