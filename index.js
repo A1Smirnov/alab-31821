@@ -18,7 +18,7 @@ const SECRET_KEY = 'supersecretkey'; // Key to crypt tokens
 
 // Middleware to check JWT
 const authenticateJWT = (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.headers['authorization']; // Use headers instead of header
     if (!token) {
         return res.status(403).send('Access denied. No token provided.');
     }
@@ -40,37 +40,55 @@ app.get('/', (req, res) => {
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
+    // Input validation
+    if (!username || !password) {
+        return res.status(400).send('Username and password are required.');
+    }
+
     // Coincidence validation
     const existingUser = users.find(user => user.username === username);
     if (existingUser) {
         return res.status(400).send('User already exists');
     }
 
-    // Crypt password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    users.push({ username, password: hashedPassword });
-    
-    res.send('User registered successfully');
+    try {
+        // Crypt password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        users.push({ username, password: hashedPassword });
+        res.send('User registered successfully');
+    } catch (error) {
+        console.error('Error hashing password:', error); // Log error
+        res.status(500).send('Error registering user');
+    }
 });
 
 // Users login and JWT
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
+    if (!username || !password) {
+        return res.status(400).send('Username and password are required.');
+    }
+
     const user = users.find(user => user.username === username);
     if (!user) {
         return res.status(400).send('Invalid username or password');
     }
 
-    // Async bcrypt to check password
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
-        return res.status(400).send('Invalid username or password');
-    }
+    try {
+        // Async bcrypt to check password
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).send('Invalid username or password');
+        }
 
-    // JWT token generation
-    const token = jwt.sign({ username: user.username }, SECRET_KEY, { expiresIn: '1h' });
-    res.json({ token });
+        // JWT token generation
+        const token = jwt.sign({ username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token });
+    } catch (error) {
+        console.error('Error logging in:', error); // Log error
+        res.status(500).send('Error logging in');
+    }
 });
 
 // Protected route
@@ -80,14 +98,14 @@ app.get('/protected', authenticateJWT, (req, res) => {
 
 // Check forms
 app.post('/submit-form', (req, res) => {
-    console.log(req.body); // log debug
+    console.log(req.body); // Log debug
     res.send('Form submitted successfully!');
 });
 
 // Form params
 app.get('/user/:name', (req, res) => {
     const userName = req.params.name;
-    res.render('user', { name: userName }); // render user page
+    res.render('user', { name: userName }); // Render user page
 });
 
 // Running server
