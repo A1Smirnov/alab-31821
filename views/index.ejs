@@ -12,6 +12,7 @@
         <a href="/">Home</a>
         <a href="/user/Admin">User Admin</a>
     </nav>
+    
     <h2>Register</h2>
     <form action="/register" method="POST">
         <label for="username">Username:</label>
@@ -20,11 +21,16 @@
         <input type="password" name="password" id="password" required>
         <button type="submit">Register</button>
     </form>
+
     <h2>Submit the Form</h2>
     <form action="/submit-form" method="POST">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name" required>
         <button type="submit">Submit</button>
     </form>
+
+    <h2>Download Image</h2>
+    <img src="/your-image.jpg" alt="Description of image" width="300"> <!-- Отображение изображения -->
+    <button onclick="window.location.href='/download-image'">Download Image</button> <!-- Кнопка для загрузки -->
 </body>
 </html>

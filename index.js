@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public'))); // Directory for static files
 app.set('view engine', 'ejs'); // Set EJS Engine for templates
 
+
 const users = []; // Users DB
 const SECRET_KEY = 'supersecretkey'; // Key to crypt tokens
 
@@ -106,6 +107,12 @@ app.post('/submit-form', (req, res) => {
 app.get('/user/:name', (req, res) => {
     const userName = req.params.name;
     res.render('user', { name: userName }); // Render user page
+});
+
+// Download image route
+app.get('/download-image', (req, res) => {
+    const file = path.join(__dirname, 'public', 'your-image.jpg'); // My image in public
+    res.download(file); // Using res.download() to dl file
 });
 
 // Running server
