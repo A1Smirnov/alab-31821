@@ -1,23 +1,30 @@
-<!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Welcome to the Home Page</h1>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/user/Admin">User Admin</a>
-  </nav>
-  <h2>Submit the Form</h2>
-  <form action="/submit-form" method="POST">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" required>
-    <button type="submit">Submit</button>
-  </form>
+    <h1>Welcome to the Home Page</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/user/Admin">User Admin</a>
+    </nav>
+    <h2>Register</h2>
+    <form action="/register" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Register</button>
+    </form>
+    <h2>Submit the Form</h2>
+    <form action="/submit-form" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
